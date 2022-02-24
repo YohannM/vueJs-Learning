@@ -42,7 +42,7 @@
         methods: {
             toggleView(tab) {
                 this.selected = tab;
-                this.$router.push({ path: `/${tab}` })
+                this.$router.push({ path: `/${tab}`, replace: tab === '' });
             }
         }
     };

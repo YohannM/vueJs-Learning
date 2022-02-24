@@ -10,8 +10,10 @@ Vue.use(VueRouter);
 const routes = [
     { path: '/', component: DefaultView },
     { path: '/goodbye', component: GoodbyeView},
-    { path: '/hello/:name', component: HelloView}
+    { path: '/hello/:name', component: HelloView},
+    { path: '/byebye', redirect: '/goodbye'}
 ];
+
 
 export default new VueRouter({
     routes
