@@ -2,8 +2,8 @@
     <div class="main">
         <div class="hello">
             <div class="header">
-                <button class="button">Load data</button>
-                <button class="button" @click="data = []">Clear</button>
+                <button class="button" @click="loadData">Load data</button>
+                <button class="button" @click="clearData">Clear</button>
             </div>
             <div class="data-list">
 
@@ -16,7 +16,7 @@
                         <tr v-if="! data || ! data.length">
                             <td colspan="2">No data to display</td>
                         </tr>
-                        <tr v-for="item in data">
+                        <tr :key="item.fields.name" v-for="item in data">
                             <td class="name">{{ item.fields.name }}</td>
                             <td class="position">N {{ item.fields.geo_point_2d[0]}} E {{ item.fields.geo_point_2d[1] }}</td>
                         </tr>
@@ -28,18 +28,18 @@
 </template>
 
 <script>
-    const URL = "https://opendata.paris.fr/api/records/1.0/search//?dataset=zones-touristiques-internationales&rows=5";
-
-    const loadJSon = async (url) => {
-        return fetch(url).then(res => res.json());
-    };
+    import { mapState, mapMutations, mapActions } from 'vuex'
 
     export default {
-        data() {
-            return {
-                data: []
-            };
-        }
+        methods: {
+            ...mapActions([
+                'loadData', // map `this.loadData()` to `this.$store.commit('loadData')`
+                'clearData' // map `this.clearData()` to `this.$store.commit('clearData')`
+            ])
+        },
+        computed: mapState([
+            'data'
+        ])
     };
 </script>
 
